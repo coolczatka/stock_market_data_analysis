@@ -56,14 +56,18 @@ plt.title("Znormalizowana logarytmiczna stopa zwrotu")
 
 plt.show()
 
-whiteNoice = np.random.normal(0, 1, len(x))
+whiteNoice = np.random.normal(np.mean(y), np.std(y), len(x))
 noisedY = y+whiteNoice
 
 suma_sk = []
+suma_sk_n = []
 suma = 0
-for i in noisedY:
+suma_n = 0
+for i,j in zip(y,noisedY):
     suma+=i
+    suma_n+=j
     suma_sk.append(suma)
+    suma_sk_n.append(suma_n)
 
 plt.figure(6)
 plt.plot(x1, noisedY)
@@ -72,5 +76,10 @@ plt.show()
 
 plt.figure(7)
 plt.plot(x1, suma_sk)
-plt.title("Suma skumulowana")
+plt.title("Suma skumulowana oryginalnych danych")
+plt.show()
+
+plt.figure(8)
+plt.plot(x1, suma_sk_n)
+plt.title("Suma skumulowana szumu")
 plt.show()
