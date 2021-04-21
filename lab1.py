@@ -16,6 +16,8 @@ x1 = df['Date'].apply(lambda a: dt.strptime(a, '%Y-%m-%d'))
 plt.figure()
 plt.plot(x1, y)
 plt.title("Cena akcji P&G (skala liniowa)")
+plt.xlabel('Czas')
+plt.ylabel('Cena akcji')
 plt.show()
 
 plt.figure()
@@ -23,6 +25,8 @@ plt.plot(x1, y)
 plt.title("Cena akcji P&G (skala półlogarytmiczna)")
 plt.yscale('log')
 plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.d'))
+plt.xlabel('Czas')
+plt.ylabel('Cena akcji')
 plt.show()
 
 # ---------------------------------------------------------
@@ -38,6 +42,8 @@ plt.plot(x1[:-1], log_ret, linewidth=0.5)
 plt.title("Logarytmiczna stopa zwrotu akcji P&G")
 # plt.yscale('log')
 # plt.gca().yaxis.set_major_formatter(FormatStrFormatter('%.d'))
+plt.xlabel('Czas')
+plt.ylabel('Wartość stopy zwrotu')
 plt.show()
 
 # ---------------------------------------------------------
@@ -52,34 +58,42 @@ print(np.mean(lr1))
 
 plt.figure(5)
 plt.plot(x1[:-1], lr1, linewidth=0.5)
+plt.xlabel('Czas')
+plt.ylabel('Wartość stopy zwrotu')
 plt.title("Znormalizowana logarytmiczna stopa zwrotu")
 
 plt.show()
 
-whiteNoice = np.random.normal(np.mean(y), np.std(y), len(x))
-noisedY = y+whiteNoice
+whiteNoice = np.random.normal(0, np.std(y), len(x))
+
+plt.figure(6)
+plt.plot(range(len(whiteNoice)), whiteNoice, linewidth=0.5)
+plt.title("Biały szum")
+plt.show()
 
 suma_sk = []
 suma_sk_n = []
 suma = 0
 suma_n = 0
-for i,j in zip(y,noisedY):
-    suma+=i
-    suma_n+=j
-    suma_sk.append(suma)
+
+for w in whiteNoice:
+    suma_n += w
     suma_sk_n.append(suma_n)
 
-plt.figure(6)
-plt.plot(x1, noisedY)
-plt.title("Zaszumione dane")
-plt.show()
+for l in log_ret:
+    suma += l
+    suma_sk.append(suma)
 
 plt.figure(7)
-plt.plot(x1, suma_sk)
-plt.title("Suma skumulowana oryginalnych danych")
+plt.plot(x1[:-1], suma_sk, linewidth=0.8)
+plt.title("Suma skumulowana stóp zwrotu danych giełdowych")
+plt.xlabel('Czas')
+plt.ylabel('Wartość sumy skumulowanej')
+
 plt.show()
 
 plt.figure(8)
-plt.plot(x1, suma_sk_n)
-plt.title("Suma skumulowana szumu")
+plt.plot(x1, suma_sk_n, linewidth=0.8)
+plt.title("Suma skumulowana białego szumu")
+plt.ylabel('Wartość sumy skumulowanej')
 plt.show()
