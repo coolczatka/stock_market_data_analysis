@@ -64,25 +64,33 @@ plt.title("Znormalizowana logarytmiczna stopa zwrotu")
 
 plt.show()
 
-whiteNoice = np.random.normal(0, np.std(y), len(x))
+whiteNoise = np.random.normal(0, np.std(lr1), len(x))
 
 plt.figure(6)
-plt.plot(range(len(whiteNoice)), whiteNoice, linewidth=0.5)
+plt.plot(range(len(whiteNoise)), whiteNoise, linewidth=0.5)
 plt.title("Biały szum")
+plt.xlabel('x')
+plt.xlabel('y')
 plt.show()
 
 suma_sk = []
 suma_sk_n = []
+suma_sk_norm = []
 suma = 0
 suma_n = 0
+suma_norm = 0
 
-for w in whiteNoice:
+for w in whiteNoise:
     suma_n += w
     suma_sk_n.append(suma_n)
 
 for l in log_ret:
     suma += l
     suma_sk.append(suma)
+
+for l in lr1:
+    suma_norm += l
+    suma_sk_norm.append(suma_norm)
 
 plt.figure(7)
 plt.plot(x1[:-1], suma_sk, linewidth=0.8)
@@ -95,5 +103,13 @@ plt.show()
 plt.figure(8)
 plt.plot(x1, suma_sk_n, linewidth=0.8)
 plt.title("Suma skumulowana białego szumu")
+plt.ylabel('Wartość sumy skumulowanej')
+plt.xlabel('x')
+plt.show()
+
+plt.figure(9)
+plt.plot(x1[:-1], suma_sk_norm, linewidth=0.8)
+plt.title("Suma skumulowana znormalizowanych stóp zwrotu danych giełdowych")
+plt.xlabel('Czas')
 plt.ylabel('Wartość sumy skumulowanej')
 plt.show()
