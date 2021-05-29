@@ -1,6 +1,4 @@
-import itertools
 import matplotlib.pyplot as plt
-import matplotlib.animation as animation 
 import random
 
 def randomCorner(corners):
@@ -24,6 +22,7 @@ def chaosGame(config):
     x, y = zip(*points)
     
     plt.figure()
+    plt.title(f"{config['epochs']} iteracji")
     plt.scatter(x, y)
     plt.show()
 
