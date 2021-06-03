@@ -28,7 +28,7 @@ fargx = np.linspace(0, 1, 100)
 fvalues = fx(fargx)
 
 plt.figure()
-plt.title(f"x1_0 = {x1s}, x2_0 = {x2s}")
+plt.title(f"x1_0 = {x1s}, x2_0 = {x2s}, krok = {step}")
 plt.plot(fargx, fvalues, 'b-')
 plt.plot(fargx, fargx, 'y-')
 
